@@ -106,6 +106,4 @@ function validateBookingInput(body) {
   };
 }
 
-module.exports = { validateBookingInput };// src/bookings/validate.js
-// Валидация входных данных для создания брони.
-// Возвращает либо { ok: true, data }, либо { ok: false, code, message }.
+module.exports = { validateBookingInput };
