@@ -1,57 +1,64 @@
-// ===== 1. Загружаем переменные окружения из .env =====
+// server.js
 require('dotenv').config();
-
-// ===== 2. Подключаем нужные модули =====
 const express = require('express');
-const { Pool } = require('pg');
+const crypto = require('crypto');
+const pool = require('./src/db');
 
-// ===== 3. Создаём приложение Express =====
 const app = express();
-
-// Чтобы сервер понимал JSON в теле запросов
 app.use(express.json());
 
-// ===== 4. Пул подключений к PostgreSQL =====
-const pool = new Pool({
-  host:     process.env.DB_HOST,
-  port:     Number(process.env.DB_PORT),
-  database: process.env.DB_NAME,
-  user:     process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+// ===== traceId для каждого запроса =====
+// Нужен, чтобы по коду из ответа можно было найти запись в логах и аудите.
+app.use((req, res, next) => {
+  req.id = crypto.randomUUID();
+  res.setHeader('X-Trace-Id', req.id);
+  next();
 });
 
-// Проверка: при старте делаем один лёгкий запрос к БД
-pool.query('SELECT 1')
-  .then(() => console.log('PostgreSQL: подключение работает'))
-  .catch((err) => {
-    console.error('PostgreSQL: подключение НЕ работает');
-    console.error('   ', err.message);
-  });
-
-// ===== 5. Простые маршруты =====
-
-// GET / — приветствие
+// ===== Простые маршруты =====
 app.get('/', (req, res) => {
   res.json({ message: 'Booking Service API работает' });
 });
 
-// GET /health/live — "процесс жив" (используется в CI/CD)
 app.get('/health/live', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// GET /health/ready — "сервис готов обслуживать" (проверяет БД)
 app.get('/health/ready', async (req, res) => {
   try {
     await pool.query('SELECT 1');
     res.json({ status: 'ready' });
   } catch (err) {
-    // 503 = "Service Unavailable"
     res.status(503).json({ status: 'not ready', reason: 'database unavailable' });
   }
 });
 
-// ===== 6. Запуск сервера =====
+// ===== API-маршруты =====
+app.use('/api/auth', require('./src/routes/auth.routes'));
+app.use('/api/resources', require('./src/routes/resources.routes'));
+
+// ===== 404 для неизвестных путей =====
+app.use((req, res) => {
+  res.status(404).json({
+    code: 'NOT_FOUND',
+    message: 'Маршрут не найден',
+    traceId: req.id,
+  });
+});
+
+// ===== Общий обработчик ошибок =====
+// Сюда попадают ошибки, которые кто-то бросил через next(err) или async-обработчик.
+// ВАЖНО: не отдаём клиенту err.message и стектрейс.
+app.use((err, req, res, next) => {
+  console.error('[unhandled]', req.method, req.url, err);
+  res.status(500).json({
+    code: 'INTERNAL_ERROR',
+    message: 'Внутренняя ошибка сервера',
+    traceId: req.id,
+  });
+});
+
+// ===== Запуск =====
 const PORT = Number(process.env.PORT) || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер запущен: http://localhost:${PORT}`);
