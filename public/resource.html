@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Переговорная — Бронь без конфликтов</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Бронь без конфликтов</h1>
+    <nav>
+      <a href="/catalog.html">Каталог</a>
+      <a href="/my-bookings.html">Мои брони</a>
+      <a href="/admin.html" id="admin-link" style="display:none;">Админ</a>
+    </nav>
+    <div class="user-info">
+      <span id="user-name"></span>
+      <button id="logout-btn" class="secondary" type="button">Выйти</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="card-loading" class="loading">Загрузка…</div>
+    <div id="card-error" class="error" role="alert"></div>
+
+    <div id="resource-card" style="display:none;">
+      <h2 id="resource-name"></h2>
+      <div class="card">
+        <div><strong>Где:</strong> <span id="resource-location"></span></div>
+        <div id="resource-description-row" style="margin-top:6px;">
+          <strong>Описание:</strong> <span id="resource-description"></span>
+        </div>
+        <div id="resource-inactive" class="error" style="display:none;margin-top:8px;">
+          Переговорная отключена. Новые бронирования недоступны.
+        </div>
+      </div>
+
+      <h3>Занятые интервалы</h3>
+      <div class="card">
+        <div class="form-row">
+          <label for="date">Дата (МСК)</label>
+          <input id="date" type="date">
+        </div>
+        <div id="busy-loading" class="loading" style="display:none;">Загрузка…</div>
+        <div id="busy-error" class="error" role="alert"></div>
+        <ul id="busy-list" style="margin:0;padding-left:20px;"></ul>
+        <div id="busy-empty" class="empty" style="display:none;">На эту дату броней нет.</div>
+        <div class="msk-note">Время указано по Москве (МСК).</div>
+      </div>
+
+      <h3>Забронировать</h3>
+      <form id="booking-form" class="card" style="display:none;">
+        <div class="form-row">
+          <label for="start">Начало (МСК, шаг 30 минут)</label>
+          <select id="start"></select>
+        </div>
+        <div class="form-row">
+          <label for="end">Окончание (МСК)</label>
+          <select id="end"></select>
+        </div>
+        <div class="form-row">
+          <label for="purpose">Цель брони (5–300 символов)</label>
+          <textarea id="purpose" rows="2" maxlength="300"></textarea>
+        </div>
+        <div id="booking-error" class="error" role="alert"></div>
+        <div id="booking-success" class="success" role="status"></div>
+        <button id="booking-btn" type="submit">Забронировать</button>
+        <div class="msk-note">Время по Москве. Бронь от 30 минут до 4 часов, в пределах 08:00–22:00.</div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/resource.js"></script>
+</body>
+</html>

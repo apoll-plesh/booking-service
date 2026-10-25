@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админ — Бронь без конфликтов</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Бронь без конфликтов</h1>
+    <nav>
+      <a href="/catalog.html">Каталог</a>
+      <a href="/my-bookings.html">Мои брони</a>
+      <a href="/admin.html">Админ</a>
+    </nav>
+    <div class="user-info">
+      <span id="user-name"></span>
+      <button id="logout-btn" class="secondary" type="button">Выйти</button>
+    </div>
+  </header>
+
+  <main>
+    <h2>Все бронирования</h2>
+
+    <div class="card">
+      <div class="form-row">
+        <label for="filter-status">Статус</label>
+        <select id="filter-status">
+          <option value="">Все</option>
+          <option value="active">Активные</option>
+          <option value="cancelled">Отменённые</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="filter-resource">ID ресурса</label>
+        <input id="filter-resource" type="number" min="1" placeholder="Например, 1">
+      </div>
+      <div class="form-row">
+        <label for="filter-date">Дата (МСК)</label>
+        <input id="filter-date" type="date">
+      </div>
+    </div>
+
+    <div id="list-loading" class="loading">Загрузка…</div>
+    <div id="list-error" class="error" role="alert"></div>
+    <div id="list-empty" class="empty" style="display:none;">По выбранным фильтрам броней нет.</div>
+
+    <table id="list-table" style="display:none;">
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Ресурс</th>
+          <th>Владелец</th>
+          <th>Время (МСК)</th>
+          <th>Цель</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody id="list-body"></tbody>
+    </table>
+
+    <div id="cancel-success" class="success" role="status" style="margin-top:12px;"></div>
+    <div id="cancel-error" class="error" role="alert" style="margin-top:8px;"></div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

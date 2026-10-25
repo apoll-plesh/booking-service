@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог — Бронь без конфликтов</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Бронь без конфликтов</h1>
+    <nav>
+      <a href="/catalog.html">Каталог</a>
+      <a href="/my-bookings.html">Мои брони</a>
+      <a href="/admin.html" id="admin-link" style="display:none;">Админ</a>
+    </nav>
+    <div class="user-info">
+      <span id="user-name"></span>
+      <button id="logout-btn" class="secondary" type="button">Выйти</button>
+    </div>
+  </header>
+
+  <main>
+    <h2>Переговорные</h2>
+
+    <div class="card">
+      <div class="form-row">
+        <label for="search">Поиск по названию</label>
+        <input id="search" type="text" placeholder="Например, Альфа">
+      </div>
+      <div class="form-row">
+        <label for="location">Местоположение</label>
+        <input id="location" type="text" placeholder="Корпус А">
+      </div>
+    </div>
+
+    <div id="list-loading" class="loading">Загрузка…</div>
+    <div id="list-error" class="error" role="alert"></div>
+    <div id="list-empty" class="empty" style="display:none;">Ничего не найдено. Попробуйте изменить фильтры.</div>
+    <div id="list"></div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/catalog.js"></script>
+</body>
+</html>

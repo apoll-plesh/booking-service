@@ -1,0 +1,175 @@
+/* public/css/style.css — минималистичная тема */
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f7;
+  color: #1a1a1a;
+  line-height: 1.4;
+}
+
+header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+header nav {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+header nav a {
+  color: #0057d8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+header nav a:hover { text-decoration: underline; }
+
+header .user-info {
+  font-size: 13px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+main {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 24px;
+}
+
+h2 { font-size: 20px; margin: 0 0 16px; }
+h3 { font-size: 16px; margin: 24px 0 12px; }
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-row label {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+input, select, textarea {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #0057d8;
+  outline-offset: 1px;
+  border-color: #0057d8;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: #0057d8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: #0046b0; }
+button:focus-visible { outline: 2px solid #003080; outline-offset: 2px; }
+button:disabled { background: #999; cursor: not-allowed; }
+
+button.secondary { background: #eee; color: #333; border: 1px solid #ccc; }
+button.secondary:hover:not(:disabled) { background: #ddd; }
+
+button.danger { background: #c62828; }
+button.danger:hover:not(:disabled) { background: #a02020; }
+
+.error {
+  color: #c62828;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.success {
+  color: #1b7d2d;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.empty {
+  color: #777;
+  font-size: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+.loading { color: #777; font-size: 14px; padding: 16px; text-align: center; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+th { font-weight: 600; color: #555; }
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: #e8f0fe;
+  color: #0057d8;
+}
+
+.tag.cancelled { background: #fce8e8; color: #c62828; }
+
+.row-actions { display: flex; gap: 8px; }
+
+.msk-note {
+  font-size: 12px;
+  color: #777;
+  margin-top: 8px;
+}
+
+/* Мобильная адаптация: 360px */
+@media (max-width: 600px) {
+  header { padding: 8px 12px; gap: 8px; }
+  main { padding: 0 12px; margin: 16px auto; }
+  header h1 { font-size: 16px; }
+  th, td { padding: 6px 4px; font-size: 13px; }
+}

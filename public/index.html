@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вход — Бронь без конфликтов</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Бронь без конфликтов</h1>
+  </header>
+
+  <main>
+    <h2>Вход в систему</h2>
+
+    <form id="signin-form" class="card" style="max-width:420px;">
+      <div class="form-row">
+        <label for="login">Логин</label>
+        <input id="login" name="login" type="text" autocomplete="username" required>
+      </div>
+      <div class="form-row">
+        <label for="password">Пароль</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <div id="form-error" class="error" role="alert"></div>
+      <button id="signin-btn" type="submit">Войти</button>
+    </form>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

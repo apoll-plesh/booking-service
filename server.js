@@ -6,6 +6,7 @@ const pool = require('./src/db');
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 
 // ===== traceId для каждого запроса =====
 // Нужен, чтобы по коду из ответа можно было найти запись в логах и аудите.
@@ -13,11 +14,6 @@ app.use((req, res, next) => {
   req.id = crypto.randomUUID();
   res.setHeader('X-Trace-Id', req.id);
   next();
-});
-
-// ===== Простые маршруты =====
-app.get('/', (req, res) => {
-  res.json({ message: 'Booking Service API работает' });
 });
 
 app.get('/health/live', (req, res) => {
@@ -37,6 +33,7 @@ app.get('/health/ready', async (req, res) => {
 app.use('/api/auth', require('./src/routes/auth.routes'));
 app.use('/api/resources', require('./src/routes/resources.routes'));
 app.use('/api/bookings', require('./src/routes/bookings.routes'));
+app.use('/api/admin', require('./src/routes/admin.routes'));
 
 // ===== 404 для неизвестных путей =====
 app.use((req, res) => {
