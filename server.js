@@ -36,6 +36,7 @@ app.get('/health/ready', async (req, res) => {
 // ===== API-маршруты =====
 app.use('/api/auth', require('./src/routes/auth.routes'));
 app.use('/api/resources', require('./src/routes/resources.routes'));
+app.use('/api/bookings', require('./src/routes/bookings.routes'));
 
 // ===== 404 для неизвестных путей =====
 app.use((req, res) => {
