@@ -1,175 +1,458 @@
-/* public/css/style.css — минималистичная тема */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-* { box-sizing: border-box; }
+   :root {
+    --cherry: #8B1E3F;          
+    --cherry-dark: #6E1731;
+    --cherry-light: #F5E6EC;    
+    --sky: #DCEAF5;             
+    --sky-strong: #B8D4E8;
+    --text: #1F1F23;
+    --text-muted: #6B6B72;
+    --bg: #d7eeff;
+    --surface: #FFFFFF;
+    --border: #E4E6EB;
+    --danger: #b31e28;
+    --danger-bg: #fbe7e9;
+    --success: #1B6B2E;
+    --success-bg: #E8F5EC;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --font: 'Inter', -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  html, body {
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* ================= Шапка ================= */
+  
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  header h1 {
+    font-size: 17px;
+    margin: 0;
+    font-weight: 700;
+    color: var(--cherry);
+    letter-spacing: 0.2px;
+    flex: 0 0 auto;
+  }
+  
+  header nav {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  
+  header nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  
+  header nav a:hover {
+    background: var(--sky);
+    color: var(--cherry-dark);
+  }
+  
+  header nav a.active {
+    background: var(--cherry-light);
+    color: var(--cherry);
+  }
+  
+  header .user-info {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* ================= Основной контент ================= */
+  
+  main {
+    max-width: 960px;
+    margin: 32px auto;
+    padding: 0 24px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  
+  h3 {
+    font-size: 17px;
+    margin: 28px 0 14px;
+    font-weight: 600;
+  }
+  
+  /* ================= Карточки ================= */
+  
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  
+  #list > .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  #list .card h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+  }
+  
+  #list .card h3 a {
+    color: var(--cherry);
+    text-decoration: none;
+  }
+  
+  #list .card h3 a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ================= Формы ================= */
+  td.row-actions:empty {
+    border-bottom: none;
+    padding: 0;
+  }
 
-body {
-  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  margin: 0;
-  background: #f5f5f7;
-  color: #1a1a1a;
-  line-height: 1.4;
-}
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+  }
+  
+  .form-row label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  input, select, textarea {
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  input:hover, select:hover, textarea:hover {
+    border-color: var(--sky-strong);
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--cherry);
+    box-shadow: 0 0 0 3px var(--cherry-light);
+  }
+  
+  textarea { resize: vertical; }
+  
+  /* ================= Кнопки ================= */
+  
+  button {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--cherry);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+    font-family: inherit;
+  }
+  
+  button:hover:not(:disabled) {
+    background: var(--cherry-dark);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  button:active:not(:disabled) { transform: translateY(1px); }
+  
+  button:focus-visible {
+    outline: 2px solid var(--cherry);
+    outline-offset: 2px;
+  }
+  
+  button:disabled {
+    background: #C9C9CE;
+    cursor: not-allowed;
+  }
+  
+  button.secondary {
+    background: var(--sky);
+    color: var(--cherry-dark);
+    border: 1px solid var(--sky-strong);
+  }
+  
+  button.secondary:hover:not(:disabled) {
+    background: var(--sky-strong);
+  }
+  
+  button.danger {
+    background: var(--danger);
+  }
+  
+  button.danger:hover:not(:disabled) {
+    background: #8E1E17;
+  }
 
-header {
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
+  td:has(.tag):has(button) button {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  /* ================= Сообщения ================= */
+  
+  .error {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: var(--danger-bg);
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+  
+  .error:not(:empty) { display: block; }
+  
+  .success {
+    color: var(--success);
+    font-size: 13px;
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: var(--success-bg);
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+  
+  .success:not(:empty) { display: block; }
+  
+  .empty {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 32px 16px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+  
+  .loading {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 32px 16px;
+    text-align: center;
+  }
+  
+  /* ================= Таблицы ================= */
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  
+  th {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: #FAFBFC;
+  }
+  
+  tr:last-child td { border-bottom: none; }
+  
+  tr:hover td { background: #FAFBFC; }
+  
+  /* ================= Теги статусов ================= */
+  
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--success-bg);
+    color: var(--success);
+  }
+  
+  .tag.cancelled {
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
+  
+  .row-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .msk-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  /* ================= Страница входа: центрируем форму ================= */
 
-header h1 {
-  font-size: 18px;
-  margin: 0;
-  flex: 0 0 auto;
-}
-
-header nav {
-  display: flex;
-  gap: 16px;
-  flex: 1;
-  flex-wrap: wrap;
-}
-
-header nav a {
-  color: #0057d8;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-header nav a:hover { text-decoration: underline; }
-
-header .user-info {
-  font-size: 13px;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-main {
-  max-width: 960px;
-  margin: 24px auto;
-  padding: 0 24px;
-}
-
-h2 { font-size: 20px; margin: 0 0 16px; }
-h3 { font-size: 16px; margin: 24px 0 12px; }
-
-.card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-}
-
-.form-row label {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-input, select, textarea {
-  padding: 8px 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: inherit;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid #0057d8;
-  outline-offset: 1px;
-  border-color: #0057d8;
-}
-
-button {
-  padding: 8px 16px;
-  font-size: 14px;
-  background: #0057d8;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover:not(:disabled) { background: #0046b0; }
-button:focus-visible { outline: 2px solid #003080; outline-offset: 2px; }
-button:disabled { background: #999; cursor: not-allowed; }
-
-button.secondary { background: #eee; color: #333; border: 1px solid #ccc; }
-button.secondary:hover:not(:disabled) { background: #ddd; }
-
-button.danger { background: #c62828; }
-button.danger:hover:not(:disabled) { background: #a02020; }
-
-.error {
-  color: #c62828;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.success {
-  color: #1b7d2d;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.empty {
-  color: #777;
-  font-size: 14px;
-  padding: 16px;
-  text-align: center;
-}
-
-.loading { color: #777; font-size: 14px; padding: 16px; text-align: center; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #eee;
-}
-
-th { font-weight: 600; color: #555; }
-
-.tag {
-  display: inline-block;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  background: #e8f0fe;
-  color: #0057d8;
-}
-
-.tag.cancelled { background: #fce8e8; color: #c62828; }
-
-.row-actions { display: flex; gap: 8px; }
-
-.msk-note {
-  font-size: 12px;
-  color: #777;
-  margin-top: 8px;
-}
-
-/* Мобильная адаптация: 360px */
-@media (max-width: 600px) {
-  header { padding: 8px 12px; gap: 8px; }
-  main { padding: 0 12px; margin: 16px auto; }
-  header h1 { font-size: 16px; }
-  th, td { padding: 6px 4px; font-size: 13px; }
-}
+  main:has(> h2 + form#signin-form) {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+  
+  main > form#signin-form {
+    padding: 28px;
+  }
+  
+  main > form#signin-form h2 {
+    text-align: center;
+  }
+  
+  /* ================= Адаптация для узких экранов ================= */
+  
+  @media (max-width: 720px) {
+    header {
+      padding: 10px 16px;
+      gap: 12px;
+    }
+  
+    header h1 {
+      font-size: 15px;
+      width: 100%;
+    }
+  
+    header nav {
+      gap: 2px;
+      width: 100%;
+    }
+  
+    header nav a {
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+  
+    header .user-info {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    main {
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+  
+    h2 { font-size: 20px; }
+  
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    thead { display: none; }
+  
+    table {
+      box-shadow: none;
+      background: transparent;
+    }
+  
+    tbody tr {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+  
+    tbody td {
+      padding: 6px 0;
+      border: none;
+      font-size: 14px;
+    }
+  
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+  
+    tbody td:first-child::before {
+      content: "№ ";
+    }
+  
+    .row-actions {
+      margin-top: 8px;
+    }
+  
+    .row-actions button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    body { font-size: 14px; }
+    header h1 { font-size: 14px; }
+    main { padding: 0 12px; }
+    .card { padding: 16px; }
+  }
