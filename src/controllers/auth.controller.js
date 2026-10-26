@@ -3,6 +3,7 @@
 const pool = require('../db');
 const { verifyPassword } = require('../auth/password');
 const { signToken } = require('../auth/jwt');
+const logger = require('../logger');
 
 // POST /api/auth/signin
 // Тело: { login, password }
@@ -53,7 +54,7 @@ async function signin(req, res) {
     });
   } catch (err) {
     // Непредвиденная ошибка — логируем на сервере, клиенту не раскрываем детали
-    console.error('[signin]', err);
+    logger.error('[signin]', err);
     return res.status(500).json({
       code: 'INTERNAL_ERROR',
       message: 'Внутренняя ошибка сервера',

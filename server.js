@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const crypto = require('crypto');
 const pool = require('./src/db');
+const logger = require('./src/logger');
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,21 @@ app.use(express.static('public'));
 app.use((req, res, next) => {
   req.id = crypto.randomUUID();
   res.setHeader('X-Trace-Id', req.id);
+  next();
+});
+
+// Логирование каждого запроса
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    logger.info('http', {
+      method: req.method,
+      path: req.originalUrl,
+      status: res.statusCode,
+      durationMs: Date.now() - start,
+      traceId: req.id,
+    });
+  });
   next();
 });
 
@@ -48,12 +64,13 @@ app.use((req, res) => {
 // Сюда попадают ошибки, которые кто-то бросил через next(err) или async-обработчик.
 // ВАЖНО: не отдаём клиенту err.message и стектрейс.
 app.use((err, req, res, next) => {
-  console.error('[unhandled]', req.method, req.url, err);
-  res.status(500).json({
-    code: 'INTERNAL_ERROR',
-    message: 'Внутренняя ошибка сервера',
+  logger.error('unhandled', {
+    method: req.method,
+    path: req.url,
     traceId: req.id,
+    error: err.message,
   });
+  res.status(500).json({ code: 'INTERNAL_ERROR', message: 'Внутренняя ошибка сервера', traceId: req.id });
 });
 
 // ===== Запуск =====

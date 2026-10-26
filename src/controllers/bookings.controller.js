@@ -3,6 +3,7 @@
 const pool = require('../db');
 const { validateBookingInput } = require('../bookings/validate');
 const crypto = require('crypto');
+const logger = require('../logger');
 
 // Считаем отпечаток запроса: одинаковый отпечаток = "тот же самый запрос".
 // Нормализуем: цель обрезаем, время — в ISO.
@@ -180,8 +181,7 @@ async function create(req, res) {
     });
   } catch (err) {
     await client.query('ROLLBACK').catch(() => {});
-    console.error('[bookings.create]', err);
-    return res.status(500).json({
+      logger.error('booking.create failed', { traceId: req.id, error: err.message });     return res.status(500).json({
       code: 'INTERNAL_ERROR',
       message: 'Внутренняя ошибка сервера',
       traceId: req.id,

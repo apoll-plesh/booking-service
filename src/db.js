@@ -2,6 +2,7 @@
 // Пул подключений к PostgreSQL. Один на всё приложение.
 require('dotenv').config();
 const { Pool } = require('pg');
+const logger = require('./logger');
 
 const pool = new Pool({
   host:     process.env.DB_HOST,
@@ -15,8 +16,8 @@ const pool = new Pool({
 pool.query('SELECT 1')
   .then(() => console.log('PostgreSQL: подключение работает'))
   .catch((err) => {
-    console.error('PostgreSQL: подключение НЕ работает');
-    console.error('   ', err.message);
+    logger.error('PostgreSQL: подключение НЕ работает');
+    logger.error('   ', err.message);
   });
 
 module.exports = pool;

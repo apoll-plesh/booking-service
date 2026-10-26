@@ -1,6 +1,7 @@
 // src/controllers/resources.controller.js
 // Просмотр каталога переговорных: список, карточка, занятость.
 const pool = require('../db');
+const logger = require('../logger');
 
 // GET /api/resources?search=...&location=...
 // Каталог активных ресурсов с поиском по названию и фильтром по местоположению.
@@ -31,7 +32,7 @@ async function list(req, res) {
     const { rows } = await pool.query(sql, params);
     res.json({ items: rows, total: rows.length });
   } catch (err) {
-    console.error('[resources.list]', err);
+    logger.error('[resources.list]', err);
     res.status(500).json({
       code: 'INTERNAL_ERROR',
       message: 'Внутренняя ошибка сервера',
@@ -70,7 +71,7 @@ async function getById(req, res) {
 
     res.json(rows[0]);
   } catch (err) {
-    console.error('[resources.getById]', err);
+    logger.error('[resources.getById]', err);
     res.status(500).json({
       code: 'INTERNAL_ERROR',
       message: 'Внутренняя ошибка сервера',
@@ -138,7 +139,7 @@ async function availability(req, res) {
       })),
     });
   } catch (err) {
-    console.error('[resources.availability]', err);
+    logger.error('[resources.availability]', err);
     res.status(500).json({
       code: 'INTERNAL_ERROR',
       message: 'Внутренняя ошибка сервера',
